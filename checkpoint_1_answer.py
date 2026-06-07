@@ -9,8 +9,6 @@ class Homework:
 
         self.completed = completed 
 
- 
-
 # Lớp quản lý 
 
 class HomeworkList: 
