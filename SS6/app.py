@@ -124,3 +124,6 @@ anime_db = AnimeDatabase()
 
 print("DANH SACH ANIME")
 print(anime_db.anime_item_list)
+
+# TEST CHỨC NĂNG THÊM ITEMS
+
