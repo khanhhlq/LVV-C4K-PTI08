@@ -126,4 +126,13 @@ print("DANH SACH ANIME")
 print(anime_db.anime_item_list)
 
 # TEST CHỨC NĂNG THÊM ITEMS
-
+anime_db.add_item(
+    {
+    "id": 19,
+    "title": "Blue Lock",
+    "release_date": "09/10/2022",
+    "image": None,
+    "rating": 8.3,
+    "link": None
+    }
+)
