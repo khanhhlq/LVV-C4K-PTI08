@@ -59,7 +59,7 @@ class AnimeList:
         return matched_items
 
     def sort_item_by_rating(self, top=None):
-        self.anime_item_list = sorted(
+        self.anime_item_list = sorted( 
             self.anime_item_list,
             key = operator.attrgetter('rating'),
             reverse=True
