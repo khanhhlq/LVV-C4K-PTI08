@@ -1,0 +1,37 @@
+#centralwidget {
+    background-color: white;
+}
+
+#sidebarWidget {
+    background-color: white;
+}
+
+#sidebarWidget QPushButton {
+    border: none;
+    background-color: transparent;
+    color: #ff6a00;
+    font-weight: bold;
+    font-size: 9px;
+    padding: 10px;
+    text-align: left;
+}
+
+#sidebarWidget QPushButton:hover {
+    background-color: #fff0e5;
+}
+
+#contentWidget {
+    background: qlineargradient(
+        x1:0, y1:0,
+        x2:0, y2:1,
+        stop:0 #ff6a00,
+        stop:0.45 #a83d00,
+        stop:1 #000000
+    );
+}
+
+#lblWelcome {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+}

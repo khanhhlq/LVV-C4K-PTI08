@@ -86,5 +86,13 @@
         "image": null,
         "rating": 8.3,
         "link": null
+    },
+    {
+        "id": 11,
+        "title": "Blue Lock",
+        "release_date": "09/10/2022",
+        "image": null,
+        "rating": 8.3,
+        "link": null
     }
 ]
