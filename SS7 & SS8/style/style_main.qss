@@ -1,0 +1,336 @@
+/* =========================
+   MAIN WINDOW
+   ========================= */
+
+QMainWindow {
+    background-color: #ffffff;
+}
+
+#centralwidget {
+    background-color: #ffffff;
+}
+
+
+/* =========================
+   LEFT MENU / SIDEBAR
+   ========================= */
+
+#sidebarFrame,
+#leftMenu {
+    background-color: #ffffff;
+    border-right: 1px solid #eeeeee;
+}
+
+#sidebarFrame QPushButton,
+#leftMenu QPushButton {
+    background-color: transparent;
+    color: #ff6600;
+    border: none;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 12px 4px;
+}
+
+#sidebarFrame QPushButton:hover,
+#leftMenu QPushButton:hover {
+    background-color: #ffe6d5;
+}
+
+#sidebarFrame QPushButton:pressed,
+#leftMenu QPushButton:pressed {
+    background-color: #ffccaa;
+}
+
+
+/* =========================
+   STACKED WIDGET PAGES
+   ========================= */
+
+#pageHome,
+#pageRankings,
+#pageManage,
+#homePage,
+#rankPage,
+#CRUDPage {
+    background-color: qlineargradient(
+        x1:0, y1:0, x2:0, y2:1,
+        stop:0 #ff6600,
+        stop:0.55 #7a2500,
+        stop:1 #000000
+    );
+}
+
+
+/* =========================
+   LABEL
+   ========================= */
+
+QLabel {
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#labelHomeTitle {
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
+/* =========================
+   LINE EDIT
+   ========================= */
+
+QLineEdit {
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 6px;
+    padding: 5px 10px;
+    font-size: 12px;
+}
+
+QLineEdit:focus {
+    border: 1px solid #ff6600;
+}
+
+
+/* =========================
+   BUTTON
+   ========================= */
+
+QPushButton {
+    background-color: white;
+    color: #ff6600;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 14px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: #ffe0cc;
+}
+
+QPushButton:pressed {
+    background-color: #ffccaa;
+}
+
+
+/* =========================
+   LIST WIDGET
+   ========================= */
+
+QListWidget {
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    padding: 8px;
+    font-size: 12px;
+}
+
+QListWidget::item {
+    padding: 6px;
+}
+
+QListWidget::item:selected {
+    background-color: #ff6600;
+    color: white;
+}
+
+#animeList,
+#animeManageList,
+#animeRankingList {
+    background-color: white;
+    color: black;
+    border: 2px solid #ffffff;
+    border-radius: 4px;
+    padding: 8px;
+    font-size: 12px;
+}
+
+
+/* =========================
+   ADD / EDIT ANIME DIALOG
+   ========================= */
+
+#AnimeDialog,
+QDialog {
+    background-color: #1f1f1f;
+}
+
+#AnimeDialog QLabel,
+QDialog QLabel {
+    color: white;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+#AnimeDialog QLineEdit,
+QDialog QLineEdit {
+    background-color: #ffffff;
+    color: #000000;
+    border: 1px solid #dddddd;
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 13px;
+}
+
+#AnimeDialog QLineEdit:focus,
+QDialog QLineEdit:focus {
+    border: 1px solid #ff6600;
+    background-color: white;
+}
+
+
+/* =========================
+   QDATEEDIT IN ANIME DIALOG
+   ========================= */
+
+#AnimeDialog QDateEdit,
+QDialog QDateEdit {
+    background-color: #ffffff;
+    color: #000000;
+    border: 1px solid #dddddd;
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 13px;
+}
+
+#AnimeDialog QDateEdit:focus,
+QDialog QDateEdit:focus {
+    border: 1px solid #ff6600;
+    background-color: #ffffff;
+}
+
+#AnimeDialog QDateEdit::drop-down,
+QDialog QDateEdit::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 24px;
+    border-left: 1px solid #dddddd;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    background-color: #ff6600;
+}
+
+#AnimeDialog QDateEdit::down-arrow,
+QDialog QDateEdit::down-arrow {
+    width: 10px;
+    height: 10px;
+}
+
+
+/* =========================
+   BUTTONS IN DIALOG
+   ========================= */
+
+#AnimeDialog QPushButton,
+QDialog QPushButton {
+    background-color: #ffffff;
+    color: #ff6600;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 16px;
+    font-weight: bold;
+}
+
+#AnimeDialog QPushButton:hover,
+QDialog QPushButton:hover {
+    background-color: #ffe0cc;
+}
+
+#AnimeDialog QPushButton:pressed,
+QDialog QPushButton:pressed {
+    background-color: #ffccaa;
+}
+
+
+/* =========================
+   HOME ANIME CARD LIST
+   ========================= */
+
+#homeScrollArea {
+    background-color: transparent;
+    border: none;
+}
+
+#homeScrollArea QWidget {
+    background-color: transparent;
+}
+
+#homeAnimeContainer {
+    background-color: transparent;
+}
+
+#animeCard {
+    background-color: rgba(255, 255, 255, 230);
+    border-radius: 10px;
+    border: 1px solid #eeeeee;
+}
+
+#animeCard:hover {
+    background-color: white;
+    border: 1px solid #ff6600;
+}
+
+#animeCardImage {
+    background-color: #eeeeee;
+    color: #777777;
+    border-radius: 8px;
+    font-size: 11px;
+}
+
+#animeCardTitle {
+    color: #ff6600;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#animeCardText {
+    color: #222222;
+    font-size: 13px;
+    font-weight: normal;
+}
+
+
+/* =========================
+   SCROLLBAR
+   ========================= */
+
+QScrollBar:vertical {
+    background: transparent;
+    width: 10px;
+    margin: 0px;
+}
+
+QScrollBar::handle:vertical {
+    background: #ff6600;
+    border-radius: 5px;
+    min-height: 30px;
+}
+
+QScrollBar::add-line:vertical,
+QScrollBar::sub-line:vertical {
+    height: 0px;
+}
+
+QScrollBar:horizontal {
+    background: transparent;
+    height: 10px;
+    margin: 0px;
+}
+
+QScrollBar::handle:horizontal {
+    background: #ff6600;
+    border-radius: 5px;
+    min-width: 30px;
+}
+
+QScrollBar::add-line:horizontal,
+QScrollBar::sub-line:horizontal {
+    width: 0px;
+}
