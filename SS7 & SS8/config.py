@@ -1,3 +1,4 @@
+# Cấu hình đường dẫn các file 
 from pathlib import Path
 
 

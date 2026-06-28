@@ -13,7 +13,6 @@ from models import AnimeDatabase
 from dialogs.anime_dialog import AnimeDialog
 from widgets.anime_card import AnimeCard
 
-
 class MainWindow(QMainWindow):
     """
     Cửa sổ chính của app.

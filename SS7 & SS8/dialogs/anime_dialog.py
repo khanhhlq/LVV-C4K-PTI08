@@ -2,7 +2,12 @@ from pathlib import Path
 
 from PyQt6 import uic
 from PyQt6.QtCore import QDate
-from PyQt6.QtWidgets import QDialog, QMessageBox, QFileDialog
+from PyQt6.QtWidgets import (
+    QDialog,
+    QMessageBox,
+    QFileDialog,
+    QPushButton
+)
 
 from config import DIALOG_UI_PATH, DATE_FORMAT
 
@@ -15,7 +20,11 @@ class AnimeDialog(QDialog):
     def __init__(self, parent=None, anime=None):
         super().__init__(parent)
 
-        uic.loadUi(DIALOG_UI_PATH, self)
+        # In ra đường dẫn file .ui đang được load
+        ui_path = Path(DIALOG_UI_PATH).resolve()
+        print("Đang load file UI:", ui_path)
+
+        uic.loadUi(str(ui_path), self)
 
         self.image_path = ""
         self.setWindowTitle("Anime Dialog")
@@ -26,8 +35,16 @@ class AnimeDialog(QDialog):
         self.dateEdit.setCalendarPopup(True)
         self.dateEdit.setDisplayFormat(DATE_FORMAT)
 
-        if hasattr(self, "btnAddFile"):
-            self.btnAddFile.clicked.connect(self.choose_image)
+        # Tìm đúng nút Add File trong file .ui
+        self.btnAddFile = self.findChild(QPushButton, "btnAddFile")
+
+        if self.btnAddFile is None:
+            raise RuntimeError(
+                "Không tìm thấy nút có objectName là 'btnAddFile'. "
+                "Hãy kiểm tra lại file .ui đang được load ở đường dẫn phía trên."
+            )
+
+        self.btnAddFile.clicked.connect(self.choose_image)
 
         if anime is not None:
             self.load_anime(anime)
@@ -48,7 +65,7 @@ class AnimeDialog(QDialog):
         if date.isValid():
             self.dateEdit.setDate(date)
 
-        if self.image_path and hasattr(self, "btnAddFile"):
+        if self.image_path:
             self.btnAddFile.setText(Path(self.image_path).name)
 
     def choose_image(self):
@@ -56,16 +73,20 @@ class AnimeDialog(QDialog):
         Mở hộp thoại chọn ảnh.
         """
 
+        print("Đã bấm nút Add File")
+
         file_path, _ = QFileDialog.getOpenFileName(
             self,
             "Chọn ảnh anime",
-            "",
-            "Image Files (*.png *.jpg *.jpeg *.webp *.svg)"
+            str(Path.home()),
+            "Image Files (*.png *.jpg *.jpeg *.webp *.svg);;All Files (*)",
+            options=QFileDialog.Option.DontUseNativeDialog
         )
 
         if file_path:
             self.image_path = file_path
             self.btnAddFile.setText(Path(file_path).name)
+            print("Ảnh đã chọn:", self.image_path)
 
     def get_data(self):
         """
