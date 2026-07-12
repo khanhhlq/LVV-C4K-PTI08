@@ -1,17 +1,24 @@
+import queue
+import threading
+import pyttsx3
+import pythoncom
+
 from PyQt6 import uic
 from PyQt6.QtCore import QDate
 from PyQt6.QtWidgets import (
     QMainWindow,
     QMessageBox,
+    QPushButton,
     QWidget,
     QVBoxLayout,
-    QScrollArea
+    QScrollArea,
 )
 
 from config import MAIN_UI_PATH, STYLE_PATH, DATA_PATH, DATE_FORMAT
 from models import AnimeDatabase
 from dialogs.anime_dialog import AnimeDialog
 from widgets.anime_card import AnimeCard
+
 
 class MainWindow(QMainWindow):
     """
@@ -29,7 +36,104 @@ class MainWindow(QMainWindow):
         self.load_style()
         self.setup_home()
         self.connect_events()
+        self.setup_text_to_speech()
         self.load_data()
+
+    # =========================
+    # TEXT TO SPEECH
+    # =========================
+
+    def setup_text_to_speech(self):
+        """
+        Tạo một luồng đọc duy nhất và kết nối tất cả QPushButton.
+        """
+        self.speech_queue = queue.Queue()
+
+        self.speech_thread = threading.Thread(
+            target=self._speech_loop,
+            daemon=True
+        )
+        self.speech_thread.start()
+
+        all_buttons = self.findChildren(QPushButton)
+        print("Số nút được kết nối giọng đọc:", len(all_buttons))
+
+        for button in all_buttons:
+            button.clicked.connect(
+                lambda checked=False, b=button: self.speak_button_text(b)
+            )
+
+    def speak_button_text(self, button):
+        """
+        Lấy chữ trên nút rồi gửi vào hàng đợi đọc.
+        """
+        text = button.text().replace("&", "").strip()
+
+        if not text:
+            print("Nút không có chữ:", button.objectName())
+            return
+
+        print("Yêu cầu đọc:", text)
+
+        try:
+            while True:
+                self.speech_queue.get_nowait()
+                self.speech_queue.task_done()
+        except queue.Empty:
+            pass
+
+        self.speech_queue.put(text)
+
+    def _speech_loop(self):
+        """
+        Luồng đọc duy nhất. Mỗi câu tạo một engine pyttsx3 mới để
+        SAPI5 có thể đọc nhiều lần mà không bị kẹt sau lần đầu.
+        """
+        pythoncom.CoInitialize()
+
+        try:
+            while True:
+                text = self.speech_queue.get()
+
+                if text is None:
+                    self.speech_queue.task_done()
+                    break
+
+                engine = None
+
+                try:
+                    # Tạo engine mới cho từng lần đọc.
+                    engine = pyttsx3.init("sapi5")
+                    engine.setProperty("volume", 1.0)
+                    engine.setProperty("rate", 150)
+
+                    print("Đang đọc:", text)
+                    engine.say(text)
+                    engine.runAndWait()
+
+                except Exception as error:
+                    print("Lỗi pyttsx3:", error)
+
+                finally:
+                    if engine is not None:
+                        try:
+                            engine.stop()
+                        except Exception:
+                            pass
+
+                    self.speech_queue.task_done()
+
+        finally:
+            pythoncom.CoUninitialize()
+
+    def closeEvent(self, event):
+        """
+        Dừng luồng đọc khi đóng chương trình.
+        """
+        if hasattr(self, "speech_queue"):
+            self.speech_queue.put(None)
+
+        event.accept()
 
     # =========================
     # SETUP
